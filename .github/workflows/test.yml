@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CICD
+on:
+  workflow_dispatch: 
+env:
+  project: 'ARR'
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    environment: ${{ secrets.TAG }}
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+      - name: Check Existing Tag
+        uses: mukunku/tag-exists-action@v1.6.0
+        id: checktag
+        with: 
+          tag: ${{env.tag}}
+      - run: echo 'this tag ${{env.tag}} ${{steps.checktag.outputs.exists}} already exist'
+        if: steps.checktag.outputs.exists == 'true' 
+      #- name: Cancel workflow
+      #  if: steps.checktag.outputs.exists == 'true'
+      #  uses: action-pack/cancel@v1
+      #  with:
+      #    token: ${{ github.token }}
+      - name: Tag commit
+        if: steps.checktag.outputs.exists == 'false'
+        id: tag_commit
+        uses: tvdias/github-tagger@v0.0.1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          tag: ${{ env.tag }}
+      - id: create_release
+        if: steps.checktag.outputs.exists == 'false'
+        name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.tag }}
+          release_name: v${{ env.tag }}
