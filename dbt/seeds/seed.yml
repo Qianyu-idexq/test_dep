@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: t_seed_d_USDccRates
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name : Currency
+        data_type: string
+        constraints:
+          - type: not_null
+          - type: primary_key
+            name: PK_Currency
+      - name : USDcc_Rates
+        data_type: double
