@@ -106,8 +106,6 @@ def workflow_dploy(d):
                 d['tasks'][i].pop('environment_key')
             except:
                 pass
-            #d['tasks']['existing_cluster_id'] = d['tasks'].pop('job_cluster_key')
-            #d['tasks']['existing_cluster_id'] ="0129-170133-guo5an1n"
     d['job_clusters'] = new_job
     
     d['name'] = d['name'] + '_QA'
