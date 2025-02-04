@@ -19,6 +19,7 @@
         "project_directory": "dbt",
         "commands": [
           "dbt deps",
+          "dbt seed -s t_seed_d_USDccRates",
           "dbt run -s t_output_d_USDccRates"
         ],
         "schema": "dev",
