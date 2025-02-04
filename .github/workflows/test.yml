@@ -47,6 +47,7 @@ jobs:
           tag_name: ${{ env.tag }}
           release_name: v${{ env.tag }}
   QA_workflow_deployment:
+    if: steps.build.outputs.exit_code == 0
     runs-on: ubuntu-latest
     permissions: write-all
     environment: qa
@@ -69,6 +70,7 @@ jobs:
           ${{ env.tag }} ${{ github.workspace }} ${{ env.project }} ${{ vars.ENV }} ${{ secrets.WAREHOUSE_ID }} ${{ secrets.APP_SECRET }} ${{ secrets.CLIENT_ID }} ${{ secrets.TENANT_ID }}
   
   PROD_workflow_deployment:
+    if: steps.QA_workflow_deployment.outputs.exit_code == 0
     runs-on: ubuntu-latest
     permissions: write-all
     environment: prod
