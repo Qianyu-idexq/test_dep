@@ -40,7 +40,7 @@ jobs:
         uses: tvdias/github-tagger@v0.0.1
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          tag: ${{ secrets.TAG }}
+          tag: ${{env.tag}}
       - id: create_release
         if: steps.checktag.outputs.exists == 'false'
         name: Create release
