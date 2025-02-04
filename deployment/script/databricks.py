@@ -143,7 +143,7 @@ def workflow_deploy(d):
                     "access_control_list": [
                       {
                         "group_name": 'dbt_'+project.lower()+'_developer',
-                        "permission_level": "CAN_MANAGE_run"
+                        "permission_level": "CAN_MANAGE_RUN"
                       }
                     ]
                   }
