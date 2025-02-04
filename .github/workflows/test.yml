@@ -5,7 +5,7 @@ on:
   workflow_dispatch: 
 env:
   project: 'ARR'
-  tag: 0.1.0
+  tag: 0.2.0
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
