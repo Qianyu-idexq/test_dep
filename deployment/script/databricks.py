@@ -98,6 +98,7 @@ def workflow_dploy(d):
         d['run_as']['service_principal_name'] = client
     for i in range(len(d['tasks'])):
         if 'dbt_task' in d['tasks'][i]:
+            d['tasks'][i]['dbt_task']['catalog'] = d['tasks'][i]['dbt_task']['catalog']+'_'+ env
             d['tasks'][i]['dbt_task']['schema'] = env
             d['tasks'][i]['dbt_task']['warehouse_id'] = warehause_id
             d['tasks'][i]['job_cluster_key']= 'dbt_CLI'
