@@ -47,9 +47,34 @@ jobs:
           tag_name: ${{ env.tag }}
           release_name: v${{ env.tag }}
   QA_workflow_deployment:
+    needs: build
     runs-on: ubuntu-latest
     permissions: write-all
     environment: qa
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout
+        #with: 
+        #  ref: 'main'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ${{ github.workspace }}/deployment/requirements.txt
+      - name: Run Script
+        run: |
+          python ${{ github.workspace }}/deployment/script/databricks.py ${{ secrets.SERVER_HOST }} ${{ secrets.DATABRICKS_TOKEN }} \
+          ${{ env.tag }} ${{ github.workspace }} ${{ env.project }} ${{ vars.ENV }} ${{ secrets.WAREHOUSE_ID }} ${{ secrets.APP_SECRET }} ${{ secrets.CLIENT_ID }} ${{ secrets.TENANT_ID }}
+  
+  PROD_workflow_deployment:
+    #if: ${{ always() }}
+    needs: [build, QA_workflow_deployment]
+    runs-on: ubuntu-latest
+    permissions: write-all
+    environment: prod
     steps:
       - uses: actions/checkout@v4
         name: Checkout

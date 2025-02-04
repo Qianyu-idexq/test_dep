@@ -108,7 +108,7 @@ def workflow_dploy(d):
                 pass
     d['job_clusters'] = new_job
     
-    d['name'] = d['name'] + '_QA'
+    d['name'] = d['name'] + '_' + env.upper()
     job_name = d['name']
     print(json.dumps(d))
     d_dump = json.dumps(d)
