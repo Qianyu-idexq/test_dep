@@ -14,7 +14,7 @@ env         = sys.argv[6]
 warehause_id= sys.argv[7]
 secret      = sys.argv[8]
 client      = sys.argv[9]
-tenant      = sys.argv[10]
+
 #url = f'https://{server_host}.azuredatabricks.net/api/2.2/jobs/'
 #header = {'Authorization': f'Bearer {token}'}
 #path = root + '/dbx/workflows/'+project+'/'
@@ -59,7 +59,7 @@ libraries = [
         }
       ]
 
-def app_re_token(client,secret,tenant):
+def app_re_token(client,secret):
 
     d = {
 
@@ -81,7 +81,7 @@ def app_re_token(client,secret,tenant):
 
 
 
-token = app_re_token(client,secret,tenant)
+token = app_re_token(client,secret)
 
 url = f'https://{server_host}.azuredatabricks.net/api/2.2/jobs/'
 header = {'Authorization': f'Bearer {token}'}
