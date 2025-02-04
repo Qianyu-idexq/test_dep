@@ -147,7 +147,7 @@ def workflow_deploy(d):
                       }
                     ]
                   }
-    permission = requests.post(url+'permissions/jobs/'+ job_id, headers=header, data=json.dumps(access_right))
+    permission = requests.post(url+'permissions/jobs/'+ str(job_id), headers=header, data=json.dumps(access_right))
 
 for file in os.listdir(path):
     with open(path+file) as f:
