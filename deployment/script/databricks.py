@@ -87,7 +87,8 @@ url = f'https://{server_host}.azuredatabricks.net/api/2.2/jobs/'
 header = {'Authorization': f'Bearer {token}'}
 path = root + '/dbx/workflows/'+project+'/'
 
-def workflow_dploy(d):
+      
+def workflow_deploy(d):
     # change parameter of workflow
     d['git_source']['git_tag'] = d['git_source'].pop('git_branch')
     d['git_source']['git_tag'] = tag
@@ -132,13 +133,24 @@ def workflow_dploy(d):
     # add workflow
     if flag == 0:
         token = requests.post(url+'create', headers=header, data=d_dump)
+        job_id = token.json()['job_id']
     elif flag == 1:
         data = {"job_id": job_id,
                 "new_settings": d}
         token = requests.post(url+'reset', headers=header, data=json.dumps(data))
     print(token.json())
+    access_right = {
+                    "access_control_list": [
+                      {
+                        "group_name": 'dbt_'+project.lower()+'_developer',
+                        "permission_level": "CAN_MANAGE_run"
+                      }
+                    ]
+                  }
+    permission = requests.post(url+'permissions/jobs/'+ job_id, headers=header, data=json.dumps(access_right))
 
 for file in os.listdir(path):
     with open(path+file) as f:
         d = json.load(f)
         workflow_dploy(d)
+
