@@ -152,5 +152,5 @@ def workflow_deploy(d):
 for file in os.listdir(path):
     with open(path+file) as f:
         d = json.load(f)
-        workflow_dploy(d)
+        workflow_deploy(d)
 
