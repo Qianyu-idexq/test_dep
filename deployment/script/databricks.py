@@ -147,7 +147,7 @@ def workflow_deploy(d):
                       }
                     ]
                   }
-    permission = requests.patch(url+'permissions/jobs/'+ str(job_id), headers=header, data=json.dumps(access_right))
+    permission = requests.patch(f'https://{server_host}.azuredatabricks.net/api/2.0/permissions/jobs/'+ str(job_id), headers=header, data=json.dumps(access_right))
     print(permission.json())
 
 for file in os.listdir(path):
