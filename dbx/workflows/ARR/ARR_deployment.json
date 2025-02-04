@@ -1,0 +1,60 @@
+{
+  "name": "ARR_deployment",
+  "email_notifications": {
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "timeout_seconds": 0,
+  "schedule": {
+    "quartz_cron_expression": "53 28 14 * * ?",
+    "timezone_id": "UTC",
+    "pause_status": "PAUSED"
+  },
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "dbt_test_deployment",
+      "run_if": "ALL_SUCCESS",
+      "dbt_task": {
+        "project_directory": "dbt",
+        "commands": [
+          "dbt deps",
+          "dbt run -s t_output_d_USDccRates"
+        ],
+        "schema": "dev",
+        "warehouse_id": "0c061a532fc3be01",
+        "catalog": "dbt_core",
+        "source": "GIT"
+      },
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {},
+      "environment_key": "Default"
+    }
+  ],
+  "git_source": {
+    "git_url": "https://github.com/Qianyu-idexq/idexq_github_deployment",
+    "git_provider": "gitHub",
+    "git_branch": "main"
+  },
+  "tags": {
+    "ResourceClass": "SingleNode"
+  },
+  "queue": {
+    "enabled": true
+  },
+  "environments": [
+    {
+      "environment_key": "Default",
+      "spec": {
+        "client": "1",
+        "dependencies": [
+          "dbt-databricks==1.8.3"
+        ]
+      }
+    }
+  ],
+  "run_as": {
+    "user_name": "qianyu.chen@idexq.de"
+  }
+}

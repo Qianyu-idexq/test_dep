@@ -1,0 +1,96 @@
+{
+  "name": "dbt_deployment",
+  "email_notifications": {
+    "no_alert_for_skipped_runs": false
+  },
+  "webhook_notifications": {},
+  "timeout_seconds": 0,
+  "schedule": {
+    "quartz_cron_expression": "4 42 16 * * ?",
+    "timezone_id": "UTC",
+    "pause_status": "PAUSED"
+  },
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "dbt_test_deployment",
+      "run_if": "ALL_SUCCESS",
+      "dbt_task": {
+        "project_directory": "dbt",
+        "commands": [
+          "dbt deps",
+          "dbt run -s t_output_d_USDccRates"
+        ],
+        "schema": "dev",
+        "warehouse_id": "0c061a532fc3be01",
+        "catalog": "dbt_core",
+        "source": "GIT"
+      },
+      "job_cluster_key": "dbt_CLI",
+      "libraries": [
+        {
+          "pypi": {
+            "package": "dbt-databricks>=1.0.0,<2.0.0"
+          }
+        }
+      ],
+      "timeout_seconds": 0,
+      "email_notifications": {},
+      "webhook_notifications": {}
+    }
+  ],
+  "job_clusters": [
+    {
+      "job_cluster_key": "dbt_CLI",
+      "new_cluster": {
+        "cluster_name": "",
+        "spark_version": "15.4.x-scala2.12",
+        "spark_conf": {
+          "spark.master": "local[*, 4]",
+          "spark.databricks.cluster.profile": "singleNode"
+        },
+        "azure_attributes": {
+          "first_on_demand": 1,
+          "availability": "ON_DEMAND_AZURE",
+          "spot_bid_max_price": -1
+        },
+        "node_type_id": "Standard_D4ds_v5",
+        "custom_tags": {
+          "ResourceClass": "SingleNode"
+        },
+        "spark_env_vars": {
+          "PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+        },
+        "enable_elastic_disk": true,
+        "data_security_mode": "SINGLE_USER",
+        "runtime_engine": "STANDARD",
+        "num_workers": 0
+      }
+    }
+  ],
+  "git_source": {
+    "git_url": "https://github.com/Qianyu-idexq/idexq_github_deployment",
+    "git_provider": "gitHub",
+    "git_branch": "main"
+  },
+  "tags": {
+    "ResourceClass": "SingleNode"
+  },
+  "queue": {
+    "enabled": true
+  },
+  "environments": [
+    {
+      "environment_key": "Default",
+      "spec": {
+        "client": "1",
+        "dependencies": [
+          "dbt-databricks>=1.0.0,<2.0.0"
+        ]
+      }
+    }
+  ],
+  "run_as": {
+    "user_name": "qianyu.chen@idexq.de"
+  }
+}
