@@ -5,7 +5,7 @@ on:
   workflow_dispatch: 
 env:
   project: 'ARR'
-  tag: 0.2.0
+  tag: 0.3.0
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -46,8 +46,8 @@ jobs:
         with:
           tag_name: ${{ env.tag }}
           release_name: v${{ env.tag }}
-  QA_workflow_deployment:
-    needs: build
+   QA_workflow_deployment:
+    needs: [build, DEV_workflow_deployment]
     runs-on: ubuntu-latest
     permissions: write-all
     environment: qa
