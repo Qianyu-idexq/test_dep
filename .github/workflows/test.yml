@@ -2,7 +2,7 @@
 
 name: CICD
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
 env:
   project: 'ARR'
   tag: 0.3.0
