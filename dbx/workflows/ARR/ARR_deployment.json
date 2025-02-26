@@ -38,9 +38,6 @@
     "git_provider": "gitHub",
     "git_branch": "main"
   },
-  "tags": {
-    "ResourceClass": "SingleNode"
-  },
   "queue": {
     "enabled": true
   },
