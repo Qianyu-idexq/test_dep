@@ -38,5 +38,5 @@ jobs:
       - name: Run Script
         run: |
           python ${{ github.workspace }}/deployment/script/databricks.py ${{ secrets.SERVER_HOST }} ${{ secrets.DATABRICKS_TOKEN }} \
-          ${{ env.tag }} ${{ github.workspace }} ${{ env.project }} ${{ vars.ENV }} ${{ secrets.WAREHOUSE_ID }} ${{ secrets.APP_SECRET }} ${{ secrets.CLIENT_ID }}
+          ${{ github.workspace }} ${{ env.project }} ${{ vars.ENV }} ${{ secrets.WAREHOUSE_ID }} ${{ secrets.APP_SECRET }} ${{ secrets.CLIENT_ID }}
   
