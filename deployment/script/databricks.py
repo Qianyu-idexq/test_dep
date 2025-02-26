@@ -112,7 +112,7 @@ def workflow_deploy(d):
             except:
                 pass
     d['job_clusters'] = new_job
-    
+    d['tags'] = {'project': project}
     d['name'] = d['name'] + '_' + env.upper()
     job_name = d['name']
     print(json.dumps(d))
