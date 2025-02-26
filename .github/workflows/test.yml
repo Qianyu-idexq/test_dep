@@ -70,7 +70,7 @@ jobs:
           ${{ env.tag }} ${{ github.workspace }} ${{ env.project }} ${{ vars.ENV }} ${{ secrets.WAREHOUSE_ID }} ${{ secrets.APP_SECRET }} ${{ secrets.CLIENT_ID }}
   
   QA_workflow_deployment:
-    needs: build
+    needs: [build, DEV_workflow_deployment]
     runs-on: ubuntu-latest
     permissions: write-all
     environment: qa
