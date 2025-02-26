@@ -90,8 +90,11 @@ path = root + '/dbx/workflows/'+project+'/'
       
 def workflow_deploy(d):
     # change parameter of workflow
-    d['git_source']['git_tag'] = d['git_source'].pop('git_branch')
-    d['git_source']['git_tag'] = tag
+    if env == 'dev':
+        d['git_source']['git_branch'] = 'main'
+    else:
+        d['git_source']['git_tag'] = d['git_source'].pop('git_branch')
+        d['git_source']['git_tag'] = tag
     try:
         print(d['run_as']['service_principal_name'])
     except:
