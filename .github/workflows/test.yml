@@ -46,7 +46,7 @@ jobs:
         with:
           tag_name: ${{ env.tag }}
           release_name: v${{ env.tag }}
-   QA_workflow_deployment:
+  QA_workflow_deployment:
     needs: [build, DEV_workflow_deployment]
     runs-on: ubuntu-latest
     permissions: write-all
