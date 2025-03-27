@@ -25,7 +25,7 @@ jobs:
       - name: generate docs
         working-directory: ./dbt
         run: |
-            dbt docs generate --profiles-dir ./profile
+            dbt docs generate --profiles-dir .
         env:
           DATABRICKS_CLIENT_ID: ${{ secrets.CLIENT_ID }}
           DATABRICKS_CLIENT_SECRET: ${{ secrets.APP_SECRET }}
