@@ -31,7 +31,6 @@ jobs:
           DATABRICKS_CLIENT_SECRET: ${{ secrets.APP_SECRET }}
           DATABRICKS_HOST: ${{ secrets.SERVER_HOST }}
           DATABRICKS_SQL: ${{ secrets.WAREHOUSE_ID }}
-          CATALOG: ${{ secrets.catalog }}
       - run: |
             git config user.name github-actions
             git config user.email github-actions@github.com
